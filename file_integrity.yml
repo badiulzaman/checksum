@@ -1,0 +1,9 @@
+---
+files:
+- name: /tmp/abc.txt
+  checksum: c569ba95b9981f7f99bd87d51074b96d /tmp/abc.txt
+- name: /tmp/def.txt
+  checksum: e62d4699bb1fd2ae8edcc9db970ac965 /tmp/def.txt
+- name: /tmp/ghi.txt
+  checksum: 6304dc6ae55e605bde8aa29c63dba52a29f84686 /tmp/ghi.txt
+

@@ -1,0 +1,21 @@
+---
+- name: check file integrity
+  hosts: localhost
+  vars_files:
+    - file_integrity.yml
+  tasks:
+  - name:  get file checksum
+    stat:
+      path: "{{ item.name }}"
+    loop: "{{ files }}"
+    register: data
+  - name: message for  match
+    debug:
+      msg: "Checksum  PASSED {{ item.stat.path }}"
+    when: item.item.checksum == item.stat.checksum + ' ' + item.stat.path
+    loop: "{{ data.results }}"
+  - name: message for mismatch
+    debug:
+      msg: "Checksum FAILED {{ item.stat.path }}"
+    when: item.item.checksum != item.stat.checksum + ' ' + item.stat.path
+    loop: "{{ data.results }}"
