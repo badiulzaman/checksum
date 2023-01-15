@@ -1,0 +1,22 @@
+---
+- name: Compare file checksum
+  hosts: localhost
+  vars_files:
+    - files.yml
+  tasks:
+  - name: check given file checksum
+    stat:
+      path: "{{ item.name }}"
+    loop: "{{ files }}"
+    register: results
+  - name: message for success
+    debug:
+      msg: "checksum passed: {{ item.stat.path }}"
+    when: "{{ item.item.checksum == item.stat.checksum + ' ' + item.stat.path }}"
+    loop: "{{ results.results }}"
+  - name: message for success
+    debug:
+      msg: "checksum failed: {{ item.stat.path }}"
+    when: "{{ item.item.checksum != item.stat.checksum + ' ' + item.stat.path }}"
+    loop: "{{ results.results }}"
+    
